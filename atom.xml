@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://KINNNNNNG.github.io</id>
     <title>Gridea</title>
-    <updated>2020-03-07T04:32:18.125Z</updated>
+    <updated>2020-03-07T14:42:57.524Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://KINNNNNNG.github.io"/>
     <link rel="self" href="https://KINNNNNNG.github.io/atom.xml"/>
@@ -10,4 +10,26 @@
     <logo>https://KINNNNNNG.github.io/images/avatar.png</logo>
     <icon>https://KINNNNNNG.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[.env 全局配置的使用]]></title>
+        <id>https://KINNNNNNG.github.io/post/env-quan-ju-pei-zhi-de-shi-yong/</id>
+        <link href="https://KINNNNNNG.github.io/post/env-quan-ju-pei-zhi-de-shi-yong/">
+        </link>
+        <updated>2020-03-07T04:30:04.000Z</updated>
+        <content type="html"><![CDATA[<p>.env 全局默认配置文件，不论什么环境都会加载合并</p>
+<p>.env.development 开发环境下的配置文件</p>
+<p>.env.production 生产环境下的配置文件</p>
+<hr>
+<p>关于文件内容：</p>
+<p><strong>注意：属性名必须以VUE_APP_开头，比如VUE_APP_XXX</strong></p>
+<hr>
+<p>关于文件的加载：</p>
+<p>根据启动命令vue会自动加载对应的环境，vue是根据文件名进行加载的，所以上面说“不要乱起名，也无需专门控制加载哪个文件”</p>
+<p>比如执行npm run serve命令，会自动加载.env.development文件</p>
+<p>全局配置中的属性会被开发环境或生成环境下的配置文件所替换</p>
+<blockquote>
+<p>本文链接：https://blog.csdn.net/w405722907/article/details/94720868</p>
+</blockquote>
+]]></content>
+    </entry>
 </feed>
