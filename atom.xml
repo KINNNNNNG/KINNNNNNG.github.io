@@ -1,15 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://KINNNNNNG.github.io</id>
-    <title>Gridea</title>
-    <updated>2020-09-21T12:25:52.362Z</updated>
+    <title>KKW</title>
+    <updated>2020-09-21T13:06:37.045Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://KINNNNNNG.github.io"/>
     <link rel="self" href="https://KINNNNNNG.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
     <logo>https://KINNNNNNG.github.io/images/avatar.png</logo>
     <icon>https://KINNNNNNG.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <rights>All rights reserved 2020, KKW</rights>
+    <entry>
+        <title type="html"><![CDATA[GWFList备份]]></title>
+        <id>https://KINNNNNNG.github.io/post/gwflist-bei-fen/</id>
+        <link href="https://KINNNNNNG.github.io/post/gwflist-bei-fen/">
+        </link>
+        <updated>2020-09-21T13:05:31.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-!">! See https://adblockplus.org/en/filter-cheatsheet
+||github.com^
+||python.org^
+||ssrcloud.org^
+||ssrcloud.com^
+||pjreddie.com^
+||javlibrary.com^
+||oracle.com^
+||apache.org^
+||gamehivegames.com^
+||javlibrary.com^
+||hanime.tv^
+||ted.com^
+||btcc.com^
+||busdmm.us^
+||rarbgmirror.org^
+||codesandbox.io^
+||gamer.com.tw^
+||segaretro.org^
+||byethost9.com^
+||byethost.com^
+||185.27.134.9^
+||topazlabs.com^
+||stackoverflow.com^
+||googleapis.com^
+||flutter.dev^
+||python.org^
+||remaxjs.org^
+||ant.design^
+||typora.io^
+||cloudflare.com^
+||haoweichi.com^
+||fakenamegenerator.com^
+||jetbrains.com^
+||mysql.com^
+||sourceforge.net^
+||gutenberg.org^
+||centos.org^
+||maven.org^
+||microsoft.com^
+||loli.cool^
+||91porn.com^
+||xvideos.com^
+||xda-developers.com^
+||sourceforge.net^
+||trello.com^
+||notion.so^
+||epicgames.com^
+||tower.jp^
+||apache.org^
+||reddit.com^
+||yahoo.co.jp^
+||69.run^
+||gotpd.link^
+||ntt-co-jp.club^
+||github.com^
+||appinn.com^
+||pcredivewiki.tw^
+||gradle.org^
+||torrentkitty.tv^
+||javbus.com^
+||unsplash.com^
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[.env 全局配置的使用]]></title>
         <id>https://KINNNNNNG.github.io/post/env-quan-ju-pei-zhi-de-shi-yong/</id>
