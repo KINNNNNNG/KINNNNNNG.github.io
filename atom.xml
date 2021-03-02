@@ -2,13 +2,49 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://KINNNNNNG.github.io</id>
     <title>KKW</title>
-    <updated>2020-09-21T13:22:22.337Z</updated>
+    <updated>2021-03-02T13:43:43.935Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://KINNNNNNG.github.io"/>
     <link rel="self" href="https://KINNNNNNG.github.io/atom.xml"/>
     <logo>https://KINNNNNNG.github.io/images/avatar.png</logo>
     <icon>https://KINNNNNNG.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, KKW</rights>
+    <rights>All rights reserved 2021, KKW</rights>
+    <entry>
+        <title type="html"><![CDATA[mybatis一级缓存 源码分析]]></title>
+        <id>https://KINNNNNNG.github.io/post/mybatis-yi-ji-huan-cun-yuan-ma-fen-xi/</id>
+        <link href="https://KINNNNNNG.github.io/post/mybatis-yi-ji-huan-cun-yuan-ma-fen-xi/">
+        </link>
+        <updated>2021-03-02T13:43:13.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="what-是什么">what 是什么</h2>
+<p>一个HashMap，PerpetualCache：一级缓存对象</p>
+<h2 id="when-什么时候创建的">when 什么时候创建的</h2>
+<p>在BaseeExecutor被创建时就创建了</p>
+<h2 id="how-怎么工作的">how 怎么工作的</h2>
+<p>在源代码<strong>BaseExecutor.java</strong> 中</p>
+<p>在执行查询SQL以后</p>
+<pre><code class="language-java">list = resultHandler == null ? (List&lt;E&gt;) localCache.getObject(key) : null;
+      if (list != null) {
+        handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
+      } else {
+        list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
+      }
+</code></pre>
+<p>从localCache中取数据，为null的时候进入queryFromDatabase（执行sql的函数）</p>
+<pre><code class="language-java">localCache.putObject(key, EXECUTION_PLACEHOLDER);
+    try {
+      list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
+    } finally {
+      localCache.removeObject(key);
+    }
+    localCache.putObject(key, list);
+    if (ms.getStatementType() == StatementType.CALLABLE) {
+      localOutputParameterCache.putObject(key, parameter);
+    }
+    return list;
+</code></pre>
+<p>先执行<strong>doQuery</strong> 执行SQL，在finally将原来在缓存的数据删除，再将新数据放入一级缓存中</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[GWFList备份]]></title>
         <id>https://KINNNNNNG.github.io/post/gwflist-bei-fen/</id>
