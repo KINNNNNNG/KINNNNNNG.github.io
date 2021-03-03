@@ -2,13 +2,73 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://KINNNNNNG.github.io</id>
     <title>KKW</title>
-    <updated>2021-03-02T13:44:22.799Z</updated>
+    <updated>2021-03-03T13:55:41.921Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://KINNNNNNG.github.io"/>
     <link rel="self" href="https://KINNNNNNG.github.io/atom.xml"/>
     <logo>https://KINNNNNNG.github.io/images/avatar.png</logo>
     <icon>https://KINNNNNNG.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, KKW</rights>
+    <entry>
+        <title type="html"><![CDATA[XML方式加载mybatis配置文件（源码）]]></title>
+        <id>https://KINNNNNNG.github.io/post/xml-fang-shi-jia-zai-mybatis-pei-zhi-wen-jian-yuan-ma/</id>
+        <link href="https://KINNNNNNG.github.io/post/xml-fang-shi-jia-zai-mybatis-pei-zhi-wen-jian-yuan-ma/">
+        </link>
+        <updated>2021-03-03T13:55:12.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-java">// 1.读取配置文件，读成字节输入流(未解析)
+    InputStream resourceAsStream = Resources.getResourceAsStream(&quot;sqlMapConfig.xml&quot;);
+
+    // 2.解析字节输入流（配置文件），封装Configuration对象 创建DefaultSqlSessionFactor
+    SqlSessionFactory build = new SqlSessionFactoryBuilder().build(resourceAsStream);
+</code></pre>
+<p>1.读取配置文件，读成字节输入流（未解析）</p>
+<p>2.使用SqlSessionFactoryBuilder.build解析配置文件</p>
+<pre><code class="language-java">public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
+  try {
+    // 创建XMLConfigBuilder，专门解析mybatis的配置文件的类
+    XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+    //执行XML解析 parser.parse()
+    //创建DefaultSqlSessionFactory
+    return build(parser.parse());
+  } catch (Exception e) {
+    throw ExceptionFactory.wrapException(&quot;Error building SqlSession.&quot;, e);
+  } finally {
+    ErrorContext.instance().reset();
+    try {
+      inputStream.close();
+    } catch (IOException e) {
+      // Intentionally ignore. Prefer previous error.
+    }
+  }
+</code></pre>
+<p>3.<strong>XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);</strong> 解析Mybatis的配置文件</p>
+<p>4.<strong>parser.parse()</strong> 调用<strong>parseConfiguration</strong>生成Configuration对象并返回</p>
+<pre><code class="language-java">private void parseConfiguration(XNode root) {
+  try {
+    //issue #117 read properties first
+    propertiesElement(root.evalNode(&quot;properties&quot;));
+    Properties settings = settingsAsProperties(root.evalNode(&quot;settings&quot;));
+    loadCustomVfs(settings);
+    loadCustomLogImpl(settings);
+    typeAliasesElement(root.evalNode(&quot;typeAliases&quot;));
+    pluginElement(root.evalNode(&quot;plugins&quot;));
+    objectFactoryElement(root.evalNode(&quot;objectFactory&quot;));
+    objectWrapperFactoryElement(root.evalNode(&quot;objectWrapperFactory&quot;));
+    reflectorFactoryElement(root.evalNode(&quot;reflectorFactory&quot;));
+    settingsElement(settings);
+    // read it after objectFactory and objectWrapperFactory issue #631
+    environmentsElement(root.evalNode(&quot;environments&quot;));
+    databaseIdProviderElement(root.evalNode(&quot;databaseIdProvider&quot;));
+    typeHandlerElement(root.evalNode(&quot;typeHandlers&quot;));
+    //解析Mapper,加载映射文件,将mapper里的数据封装进Configuration
+    mapperElement(root.evalNode(&quot;mappers&quot;));
+  } catch (Exception e) {
+    throw new BuilderException(&quot;Error parsing SQL Mapper Configuration. Cause: &quot; + e, e);
+  }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[mybatis一级缓存 源码分析]]></title>
         <id>https://KINNNNNNG.github.io/post/mybatis-yi-ji-huan-cun-yuan-ma-fen-xi/</id>
