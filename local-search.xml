@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Hexo+github+yueque 云端写作，全自动博客搭建过程</title>
+    <link href="/2021/12/22/gmzylv/"/>
+    <url>/2021/12/22/gmzylv/</url>
+    
+    <content type="html"><![CDATA[<p>一直在看不同的文章，里面不断的强调书写文章的重要性，自己也一直在尝试着写文章，从本地 MD 到自动部署的 Gridea 再到掘金平台，我最觉得还是有一个自己的博客网站比较好，由于刚开始写，没必要购买服务器，域名进行搭建，所以我选择 0 成本的 Hexo+github，再不断翻阅资料中又发现了 github Action 的自动化部署和 yuque-hexo 的同步，从而实现了云端写作，全自动部署博客的一个工作流。<br>根据步骤</p><ul><li>当你完成搭建 Github Actions 以后，你就可以在任意有 Git 的电脑上更新你的博客</li><li>当你完成使用函数计算触发 Github Actions 以后，你就可以在任意有网络的电脑上更新你的博客</li></ul><h2 id="搭建-Hexo-博客"><a href="#搭建-Hexo-博客" class="headerlink" title="搭建 Hexo 博客"></a>搭建 Hexo 博客</h2><p>Hexo 的搭建可以根据 <a href="%5Bhttps://hexo.io/zh-cn/%5D(https://hexo.io/zh-cn/)">Hexo 中文官网</a> 进行搭建，这里简单的说明一下</p><h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><ul><li>Node.js (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</li><li>Git</li></ul><h4 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">npm install <span class="hljs-literal">-g</span> hexo<span class="hljs-literal">-cli</span><br></code></pre></td></tr></table></figure><h4 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h4><p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">hexo init &lt;floder&gt;<br><span class="hljs-built_in">cd</span> &lt;floder&gt;<br>npm install <span class="hljs-literal">-regitster</span> http://registry.npm.taobao.org<br></code></pre></td></tr></table></figure><h4 id="运行博客"><a href="#运行博客" class="headerlink" title="运行博客"></a>运行博客</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">npm run server<br></code></pre></td></tr></table></figure><p>然后在<code>source/_posts</code>中编写 md 文档<br>顺利的话，访问 <a href="http://localhost:4000/">http://localhost:4000</a> 就可以在本地看见自己的博客了。<br>可以根据自己的兴趣搜索主题，个人使用的是 <a href="%5Bhttps://github.com/fluid-dev/hexo-theme-fluid%5D(https://github.com/fluid-dev/hexo-theme-fluid)">Fluid</a></p><h2 id="搭建-GitPages-博客发布"><a href="#搭建-GitPages-博客发布" class="headerlink" title="搭建 GitPages(博客发布)"></a>搭建 GitPages(博客发布)</h2><p>通过修改配置，设置主题，这时候可以选择将博客放在自己的服务器上，也可以使用 GitPages 将网页托管给 gitHub，Gitee。我个人选择使用 GitHub。</p><h4 id="安装-hexo-deployer-git"><a href="#安装-hexo-deployer-git" class="headerlink" title="安装 hexo-deployer-git"></a>安装 hexo-deployer-git</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">npm install hexo<span class="hljs-literal">-deployer-git</span> <span class="hljs-literal">--save</span><br></code></pre></td></tr></table></figure><h4 id="创建-Git-仓库"><a href="#创建-Git-仓库" class="headerlink" title="创建 Git 仓库"></a>创建 Git 仓库</h4><p>首先要在 GitHub 上创建你的 GitPages 仓库，仓库名必须为<strong>用户名.github.io</strong>。然后你的博客地址就是<strong>用户名.github.io</strong><br>比如我的仓库就是<br><img src="https://cdn.nlark.com/yuque/0/2021/png/672666/1640182555889-52f16cda-0142-484d-b242-a072869c4bac.png#clientId=u59536757-b0f0-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=70&id=u539d3812&margin=%5Bobject%20Object%5D&name=image.png&originHeight=70&originWidth=521&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6800&status=done&style=none&taskId=ua2e0baa0-6f83-4e7c-818f-fbea743f1d2&title=&width=521" alt="image.png"><br>所以我的博客地址就是 <a href="https://kinnnnnng.github.io/">https://kinnnnnng.github.io</a></p><h4 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置_config.yml"></a>配置_config.yml</h4><p>修改_config.yml 里的配置</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">&quot;git&quot;</span><br>  <span class="hljs-comment"># 你的gitPages地址</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/KINNNNNNG/KINNNNNNG.github.io.git</span><br>  <span class="hljs-comment"># 你所推送的分支,我这里选择hexo</span><br>  <span class="hljs-attr">branch:</span> [<span class="hljs-string">hexo</span>]<br></code></pre></td></tr></table></figure><h4 id="博客发布"><a href="#博客发布" class="headerlink" title="博客发布"></a>博客发布</h4><p>运行</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">hexo</span> <span class="hljs-string">clean</span> <span class="hljs-string">&amp;&amp;</span> <span class="hljs-string">hexo</span> <span class="hljs-string">deploy</span><br></code></pre></td></tr></table></figure><p>登录 GitHub，进入你的 github.io，进入设置界面，切换你设置的分支，点击保存，等待几分钟，访问的你的网站。<br><img src="https://cdn.nlark.com/yuque/0/2021/png/672666/1640183188042-3531688b-f08e-42d6-b97d-082c04606206.png#clientId=u59536757-b0f0-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=957&id=uefebf1be&margin=%5Bobject%20Object%5D&name=image.png&originHeight=957&originWidth=1950&originalType=binary&ratio=1&rotation=0&showTitle=false&size=140455&status=done&style=none&taskId=u24b657f1-f1da-4820-9b8e-d47547fe387&title=&width=1950" alt="image.png"></p><p>到此为止你已经可以愉快的在本地编写 MD 文档了，然后使用<code>hexo clean &amp;&amp; hexo deploy</code>对博客进行更新。但这里有一个弊端，你只能使用搭建博客的电脑进行博客更新，更新博客必须每次都运行命令行。所以我使用 Github Actions 对博客进行自动化的部署</p><h2 id="搭建-GitHub-Actions-实现-Push-后自动同步"><a href="#搭建-GitHub-Actions-实现-Push-后自动同步" class="headerlink" title="搭建 GitHub Actions(实现 Push 后自动同步)"></a>搭建 GitHub Actions(实现 Push 后自动同步)</h2><h2 id="搭建语雀知识库"><a href="#搭建语雀知识库" class="headerlink" title="搭建语雀知识库"></a>搭建语雀知识库</h2><h2 id="使用云平台的函数计算触发-GitHub-Action"><a href="#使用云平台的函数计算触发-GitHub-Action" class="headerlink" title="使用云平台的函数计算触发 GitHub Action"></a>使用云平台的函数计算触发 GitHub Action</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>教程</category>
+      
+      <category>hexo</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>教程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>List转Map</title>
+    <link href="/2021/12/22/qqg2wz/"/>
+    <url>/2021/12/22/qqg2wz/</url>
+    
+    <content type="html"><![CDATA[<h3 id="1、指定-key-value，value-是对象中的某个属性值。"><a href="#1、指定-key-value，value-是对象中的某个属性值。" class="headerlink" title="1、指定 key-value，value 是对象中的某个属性值。"></a>1、指定 key-value，value 是<strong>对象中的某个属性值</strong>。</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-title class_">Map</span>&lt;<span class="hljs-title class_">Integer</span>,<span class="hljs-title class_">String</span>&gt; userMap1 = serList.<span class="hljs-title function_">stream</span>()<br>.<span class="hljs-title function_">collect</span>(<span class="hljs-title class_">Collectors</span>.<span class="hljs-title function_">toMap</span>(<span class="hljs-title class_">User</span>::getId,<span class="hljs-title class_">User</span>::getName));<br></code></pre></td></tr></table></figure><h3 id="2、指定-key-value，value-是对象本身，User-gt-User-是一个返回本身的-lambda-表达式"><a href="#2、指定-key-value，value-是对象本身，User-gt-User-是一个返回本身的-lambda-表达式" class="headerlink" title="2、指定 key-value，value 是对象本身，User-&gt;User 是一个返回本身的 lambda 表达式"></a>2、指定 key-value，value 是<strong>对象本身</strong>，User-&gt;User 是一个返回本身的 lambda 表达式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Map&lt;Integer,User&gt; userMap2 = userList.stream()<br>.collect(Collectors.toMap(User::getId,User-&gt;User));<br></code></pre></td></tr></table></figure><h3 id="3、指定-key-value，value-是对象本身，Function-identity-是简洁写法，也是返回对象本身"><a href="#3、指定-key-value，value-是对象本身，Function-identity-是简洁写法，也是返回对象本身" class="headerlink" title="3、指定 key-value，value 是对象本身，Function.identity()是简洁写法，也是返回对象本身"></a>3、指定 key-value，value 是对象本身，Function.identity()是简洁写法，也是返回对象本身</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Map&lt;Integer,User&gt; userMap3 = userList.stream()<br>.collect(Collectors.toMap(User::getId, Function.identity()));<br></code></pre></td></tr></table></figure><h3 id="4、指定-key-value，value-是对象本身，Function-identity-是简洁写法，也是返回对象本身，key-冲突的解决办法，这里选择第二个-key-覆盖第一个-key。"><a href="#4、指定-key-value，value-是对象本身，Function-identity-是简洁写法，也是返回对象本身，key-冲突的解决办法，这里选择第二个-key-覆盖第一个-key。" class="headerlink" title="4、指定 key-value，value 是对象本身，Function.identity()是简洁写法，也是返回对象本身，key 冲突的解决办法，这里选择第二个 key 覆盖第一个 key。"></a>4、指定 key-value，value 是对象本身，<strong>Function.identity()是简洁写法，也是返回对象本身，key 冲突的解决办法，这里选择第二个 key 覆盖第一个 key</strong>。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Map&lt;Integer,User&gt; userMap4 = userList.stream()<br>.collect(Collectors.toMap(User::getId, Function.identity(),(key1,key2)-&gt;key2));<br></code></pre></td></tr></table></figure><h3 id="5、指定-key-value，value-是-List。"><a href="#5、指定-key-value，value-是-List。" class="headerlink" title="5、指定 key-value，value 是 List。"></a>5、指定 key-value，value 是 List。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">Map&lt;String, List&lt;String&gt;&gt; map = list.stream().collect(Collectors.toMap(Person::getId,<br>    p -&gt;  &#123;<br>     List&lt;String&gt; getNameList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>     getNameList.add(p.getName());<br>     <span class="hljs-keyword">return</span> getNameList;<br>     &#125;,<br>         (List&lt;String&gt; value1, List&lt;String&gt; value2) -&gt; &#123;<br>         value1.addAll(value2);<br>         <span class="hljs-keyword">return</span> value1;<br>         &#125;<br>     ));<br></code></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>Stream</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法图解.PDF</title>
+    <link href="/2021/12/01/gs11gx/"/>
+    <url>/2021/12/01/gs11gx/</url>
+    
+    <content type="html"><![CDATA[<p>下载地址: <a href="https://drive.google.com/file/d/18VSUiLexMzkYDi1SAjTB65w84ik_sCLw/view">算法图解</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>书籍</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>书籍</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>vue-cli4跨域添加Porxy后依旧404问题</title>
+    <link href="/2021/11/30/mzgogd/"/>
+    <url>/2021/11/30/mzgogd/</url>
+    
+    <content type="html"><![CDATA[<p>今天在新建一个<code>vue-electron</code>的工程，在解决前后端通信上，我知道是需要在<code>vue.config.js</code>中创建一个代理，所以上网搜索了一下，直接复制到代码里的。</p><p>结果跨域问题是消失了，但是请求一直显示 404，查询了大量代码，有说重启后就好了，有说在<code>pathRewrite</code>中<code>&#39;&#39;</code>加上代理名称，都依旧是 404。</p><p><img src="https://raw.githubusercontent.com/KINNNNNNG/PicGo-Img/master/a071545d520d4e0b847200398452b406tplv-k3u1fbpfcp-watermark.awebp#alt=image.png"></p><p>最后我查询了最近一次创建的工程，发现是复制下来的代码有问题。欲哭无泪，浪费了 2 小时</p><p>原代码:</p><p><img src="https://raw.githubusercontent.com/KINNNNNNG/PicGo-Img/master/453d8fe3c5f04ff9afad5db8f1575d1dtplv-k3u1fbpfcp-watermark.awebp#alt=carbon.png"></p><p>修改后解决 404 的代码:</p><p><img src="https://raw.githubusercontent.com/KINNNNNNG/PicGo-Img/master/ae40a50d090443768f6749047dae147atplv-k3u1fbpfcp-watermark.awebp#alt=image.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端</tag>
+      
+      <tag>Vue</tag>
+      
+      <tag>跨域</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Mybatis运行逻辑</title>
+    <link href="/2021/03/03/cdtbta/"/>
+    <url>/2021/03/03/cdtbta/</url>
+    
+    <content type="html"><![CDATA[<p>用 <code>Resources.getResourceAsStream</code> 加载配置文件，转成字节输入流</p><p>将字节输入流作为参数传入 <code>SqlSessionFactoryBuilder.builder</code> 中进行配置解析，解析成 Configuration 对象，并创建 <code>DefaultSqlSessionFactory</code>，由 <code>DefaultSqlSessionFactory.openSession</code> 生产 <code>SqlSession</code>，同时生成 <code>Executor</code> 执行期</p><p>执行调用 mapper 里的方法时，传入 statementId，和对应参数，sqlsession 将执行任务交给 Executor，executor 将生成 <code>BoundSql</code>，<code>ParameterHandler</code>，将 <code>BoundSql</code> 与参数传入 <code>ParameterHandler</code>，由 <code>ParameterHandler</code> 对 <code>Statement</code> 对象进行参数设置，然后传参给 <code>TypeHandler</code>，<code>TypeHandler</code> 对 <code>JdbcType</code> 和 <code>JavaType</code> 进行解析，对 <code>statement</code> 进行特殊的参数设置（？），然后调用 <code>StatementHandler</code> 调用 query 方法去调用 <code>PreparedStatement</code> 执行 SQL，将结果集交给 <code>ResultHandler</code> 进行转换，最后返回结果</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Mybatis</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mybatis</tag>
+      
+      <tag>源码</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>mybatis一级缓存 源码分析</title>
+    <link href="/2021/03/02/iy2f66/"/>
+    <url>/2021/03/02/iy2f66/</url>
+    
+    <content type="html"><![CDATA[<h2 id="what-是什么"><a href="#what-是什么" class="headerlink" title="what 是什么"></a>what 是什么</h2><p>一个 HashMap，PerpetualCache：一级缓存对象</p><h2 id="when-什么时候创建的"><a href="#when-什么时候创建的" class="headerlink" title="when 什么时候创建的"></a>when 什么时候创建的</h2><p>在 BaseeExecutor 被创建时就创建了</p><h2 id="how-怎么工作的"><a href="#how-怎么工作的" class="headerlink" title="how 怎么工作的"></a>how 怎么工作的</h2><p>在源代码<strong>BaseExecutor.java</strong>中</p><p>在执行查询 SQL 以后</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">list = resultHandler == <span class="hljs-literal">null</span> ? (List&lt;E&gt;) localCache.getObject(key) : <span class="hljs-literal">null</span>;<br><span class="hljs-keyword">if</span> (list != <span class="hljs-literal">null</span>) &#123;<br>    handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);<br>&#125;<br></code></pre></td></tr></table></figure><p>从 localCache 中取数据，为 null 的时候进入 queryFromDatabase（执行 sql 的函数）</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">localCache.putObject(key, EXECUTION_PLACEHOLDER);<br>    <span class="hljs-keyword">try</span> &#123;<br>      list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);<br>    &#125; <span class="hljs-keyword">finally</span> &#123;<br>      localCache.removeObject(key);<br>    &#125;<br>    localCache.putObject(key, list);<br>    <span class="hljs-keyword">if</span> (ms.getStatementType() == StatementType.CALLABLE) &#123;<br>      localOutputParameterCache.putObject(key, parameter);<br>    &#125;<br>    <span class="hljs-keyword">return</span> list;<br></code></pre></td></tr></table></figure><p>先执行<strong>doQuery</strong> 执行 SQL，在 finally 将原来在缓存的数据删除，再将新数据放入一级缓存中</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Mybatis</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mybatis</tag>
+      
+      <tag>源码</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>BigDecimal运算规则</title>
+    <link href="/2021/02/03/vv7xi5/"/>
+    <url>/2021/02/03/vv7xi5/</url>
+    
+    <content type="html"><![CDATA[<ol><li>加减乘除<br>add 加 subtract 减 multiply 乘 divide 除</li><li>取反<br>negate()</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>BigDecimal</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>使用IText+Freemarker生成PDF文件</title>
+    <link href="/2020/04/26/nclt0o/"/>
+    <url>/2020/04/26/nclt0o/</url>
+    
+    <content type="html"><![CDATA[<p>最近公司有个打印文件的需求，既然是打印，为了格式统一肯定使用 PDF 文件比较好，查了一下 JAVA 中大部分是使用 IText 创建 PDF 的，学习了下他人的方法，最终实现根据 Freemarker 模板生成 PDF 的方法</p><h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.freemarker<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>freemarker<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.28<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.itextpdf<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>itextpdf<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.5.11<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.itextpdf.tool<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>xmlworker<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.5.11<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure><h3 id="实际代码"><a href="#实际代码" class="headerlink" title="实际代码"></a>实际代码</h3><h4 id="freemarker-模板文件-template-ftl"><a href="#freemarker-模板文件-template-ftl" class="headerlink" title="freemarker 模板文件 template.ftl"></a>freemarker 模板文件 template.ftl</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;Content-Type&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;text/html;charset=utf-8&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css">        <span class="hljs-selector-tag">body</span> &#123;</span><br><span class="language-css">            <span class="hljs-attribute">font-family</span>: SimHei;</span><br><span class="language-css">        &#125;</span><br><span class="language-css"></span><br><span class="language-css">        <span class="hljs-selector-class">.blue</span> &#123;</span><br><span class="language-css">            <span class="hljs-attribute">color</span>: blue;</span><br><span class="language-css">        &#125;</span><br><span class="language-css">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;blue&quot;</span>&gt;</span><br>    你好111，$&#123;name&#125;<br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>        &lt;#list models as o&gt;<br>            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>$&#123;o.uuid&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        &lt;/#list&gt;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure><h4 id="根据-freemarker-模板生成-HTML"><a href="#根据-freemarker-模板生成-HTML" class="headerlink" title="根据 freemarker 模板生成 HTML"></a>根据 freemarker 模板生成 HTML</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">freeMarkerRender</span><span class="hljs-params">(Map&lt;String, Object&gt; data, String url, String htmlTmp)</span> &#123;<br>    <span class="hljs-type">Writer</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringWriter</span>();<br>    <span class="hljs-keyword">try</span> &#123;<br>        freemarkerCfg.setDirectoryForTemplateLoading(<span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(url));<br>        freemarkerCfg.setDefaultEncoding(<span class="hljs-string">&quot;UTF-8&quot;</span>);<br>        <span class="hljs-comment">// 获取模板,并设置编码方式</span><br>        <span class="hljs-type">Template</span> <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> freemarkerCfg.getTemplate(htmlTmp);<br>        template.setEncoding(<span class="hljs-string">&quot;UTF-8&quot;</span>);<br>        <span class="hljs-comment">// 合并数据模型与模板</span><br>        template.process(data, out); <span class="hljs-comment">//将合并后的数据和模板写入到流中，这里使用的字符流</span><br>        out.flush();<br>        <span class="hljs-keyword">return</span> out.toString();<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        e.printStackTrace();<br>    &#125; <span class="hljs-keyword">finally</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            out.close();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException ex) &#123;<br>            ex.printStackTrace();<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h4 id="根据-HTML-生成-PDF-文件"><a href="#根据-HTML-生成-PDF-文件" class="headerlink" title="根据 HTML 生成 PDF 文件"></a>根据 HTML 生成 PDF 文件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">createPdf</span><span class="hljs-params">(OutputStream out, String content, String dest)</span> <span class="hljs-keyword">throws</span> IOException, DocumentException &#123;<br>    <span class="hljs-comment">// step 1</span><br>    <span class="hljs-type">Document</span> <span class="hljs-variable">document</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Document</span>();<br>    <span class="hljs-comment">// step 2</span><br>    <span class="hljs-type">PdfWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> PdfWriter.getInstance(document, out);<br>    <span class="hljs-comment">// step 3</span><br>    document.open();<br>    <span class="hljs-comment">// step 4</span><br>    <span class="hljs-type">XMLWorkerFontProvider</span> <span class="hljs-variable">fontImp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLWorkerFontProvider</span>(XMLWorkerFontProvider.DONTLOOKFORFONTS);<br>    fontImp.register(FONT);<br>    XMLWorkerHelper.getInstance().parseXHtml(writer, document,<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(content.getBytes(<span class="hljs-string">&quot;UTF-8&quot;</span>)), <span class="hljs-literal">null</span>, Charset.forName(<span class="hljs-string">&quot;UTF-8&quot;</span>), fontImp);<br>    <span class="hljs-comment">// step 5</span><br>    document.close();<br>    &#125;<br></code></pre></td></tr></table></figure><h4 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">HTML</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;PaperTemplate.ftl&quot;</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">FONT</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;C:\\app\\simhei.ttf&quot;</span>;<br><span class="hljs-meta">@RequestMapping(&quot;/download/&#123;id&#125;&quot;)</span><br><span class="hljs-meta">@ResponseBody</span><br><span class="hljs-keyword">public</span> Object <span class="hljs-title function_">download</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> Long id, HttpSession httpSession)</span> <span class="hljs-keyword">throws</span> IOException, DocumentException &#123;<br>    Map&lt;String, Object&gt; data = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    data.put(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;张三&quot;</span>);<br>    data.put(<span class="hljs-string">&quot;model&quot;</span>, paperServ.getAll());<br>    <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> httpSession.getServletContext().getRealPath(<span class="hljs-string">&quot;/&quot;</span>) + <span class="hljs-string">&quot;download&quot;</span> + File.separator;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">html</span> <span class="hljs-operator">=</span> freeMarkerRender(data, url, HTML);<br>    <span class="hljs-type">ServletOutputStream</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> getResponse().getOutputStream();<br>    createPdf(out, html, DEST);<br>    out.flush();<br>    IOUtils.closeQuietly(out);<br>    <span class="hljs-keyword">return</span> html;<br>    &#125;<br></code></pre></td></tr></table></figure><h4 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h4><p><img src="https://raw.githubusercontent.com/KINNNNNNG/PicGo-Img/master/171b43a94c33e3e5%7Etplv-t2oaga2asx-watermark.awebp#alt=img"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>IText</tag>
+      
+      <tag>Freemarker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>EnvironmentPostProcessor 的使用（多配置文件）</title>
+    <link href="/2019/11/17/dfv0hh/"/>
+    <url>/2019/11/17/dfv0hh/</url>
+    
+    <content type="html"><![CDATA[<p>spring boot 提供了自动化配置，只需要少量的配置即可开箱即用，但是当你的项目集成了越来越多的插件以后，会有越来越多的配置项堆积在你的<strong>application.properties</strong>里，就比如你想要初始化建立一个 spring boot + mybatis 项目，你需要配置数据库地址，mybatis 配置，mapper 配置，如果引入 druid 连接池，就还需要配置一堆连接池选项，后续还需要分页设置。</p><p>最近公司在从 spring MVC 升级刀 spring boot，由于原先的框架继承了各种各样的第三方包，XML 文件就 5.6 个，升级到 spring boot 也就依旧需要配置一堆东西，这时候就需要将一个<strong>application.properties</strong>进行拆分。</p><p>查阅资料我通过继承<strong>EnvironmentPostProcessor</strong>编写配置类，使 spring boot 可以动态添加外部的配置项。<strong>EnvironmentPostProcessor</strong>可以加载内部 resource 文件的内容，也可以根据你给的路径加载外部的配置文件。</p><p>我选择加载内部 resource 文件的内容</p><h2 id="1-在-resource-文件下建立-db-properties-文件"><a href="#1-在-resource-文件下建立-db-properties-文件" class="headerlink" title="1.在 resource 文件下建立 db.properties 文件"></a>1.在 resource 文件下建立 db.properties 文件</h2><p>根据原先<strong>application.properties</strong>里的 DB 配置，将 DB 配置写入<strong>db.properties</strong>中。</p><p><img src="https://raw.githubusercontent.com/KINNNNNNG/PicGo-Img/master/16e794112f7f7097tplv-t2oaga2asx-watermark.awebp#alt=img"></p><h2 id="2-编写自定义的加载类MyEnvironmentPostProcessor-实现EnvironmentPostProcessor接口-重写postProcessEnvironment方法"><a href="#2-编写自定义的加载类MyEnvironmentPostProcessor-实现EnvironmentPostProcessor接口-重写postProcessEnvironment方法" class="headerlink" title="2.编写自定义的加载类MyEnvironmentPostProcessor,实现EnvironmentPostProcessor接口,重写postProcessEnvironment方法"></a>2.编写自定义的加载类<strong>MyEnvironmentPostProcessor</strong>,实现<strong>EnvironmentPostProcessor</strong>接口,重写<strong>postProcessEnvironment</strong>方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyEnvironmentPostProcessor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">EnvironmentPostProcessor</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Properties</span> <span class="hljs-variable">properties</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>();<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 存放properties文件名</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String[] profiles = &#123;<br>            <span class="hljs-string">&quot;db.properties&quot;</span>,<br>            <span class="hljs-string">&quot;freemarker.properties&quot;</span>,<br>            <span class="hljs-string">&quot;druid.properties&quot;</span>,<br>            <span class="hljs-string">&quot;jpa.properties&quot;</span><br>    &#125;;<br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">postProcessEnvironment</span><span class="hljs-params">(ConfigurableEnvironment environment, SpringApplication application)</span> &#123;<br>        <span class="hljs-comment">//遍历profiles，加载配置文件</span><br>        <span class="hljs-keyword">for</span> (String profile : profiles) &#123;<br>            <span class="hljs-type">Resource</span> <span class="hljs-variable">resource</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathResource</span>(profile);<br>            environment.getPropertySources().addLast(loadProfiles(resource));<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">//加载配置文件</span><br>    <span class="hljs-keyword">private</span> PropertySource&lt;?&gt; loadProfiles(Resource resource) &#123;<br>        <span class="hljs-keyword">if</span> (!resource.exists()) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(<span class="hljs-string">&quot;file&quot;</span> + resource + <span class="hljs-string">&quot;not exist&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">try</span> &#123;<br>            properties.load(resource.getInputStream());<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PropertiesPropertySource</span>(resource.getFilename(), properties);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException ex) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(<span class="hljs-string">&quot;load resource exception&quot;</span> + resource, ex);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="3-配置-spring-factories-使-MyEnvironmentPostProcessor-生效"><a href="#3-配置-spring-factories-使-MyEnvironmentPostProcessor-生效" class="headerlink" title="3.配置 spring.factories 使 MyEnvironmentPostProcessor 生效"></a>3.配置 spring.factories 使 MyEnvironmentPostProcessor 生效</h2><p>在 resource 下创建<strong>META-INF</strong>文件夹，在<strong>META-INF</strong>下创建<strong>spring.factories</strong>，并且引入刚刚编写的<strong>MyEnvironmentPostProcessor</strong> 类</p><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">org.springframework.boot.env.EnvironmentPostProcessor</span>=<span class="hljs-string">com.wolf.web.EnvironmentPostProcessor.MyEnvironmentPostProcessor</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring Boot</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring Boot</tag>
+      
+      <tag>Spring,Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>spring boot 多模块创建的一个坑</title>
+    <link href="/2019/11/17/haef6n/"/>
+    <url>/2019/11/17/haef6n/</url>
+    
+    <content type="html"><![CDATA[<p>公司原来用的是 spring MVC 的多模块架构，经过我一段时间努力，升级成了 Spring Boot 项目迁移后可以使用，今天新建项目，把项目添加进 JRebel 中以后，报数据库 url 没有找到的错误。</p><p>经过排插，发现新建 module 的时候，我使用的是直接创建一个 spring boot 项目，所以会创建<strong>application.properties</strong>文件，一开始启动不报错应该是因为没有加入到 Jrebel 的热部署中，我一加进去就报错了，查了半小时。有点心累</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java">***************************<br>APPLICATION FAILED TO START<br>***************************<br><br>Description:<br><br>Failed to configure a DataSource: <span class="hljs-string">&#x27;url&#x27;</span> attribute is not specified and no embedded datasource could be configured.<br><br>Reason: Failed to determine a suitable driver <span class="hljs-keyword">class</span><br><br><br><span class="hljs-title class_">Action</span>:<br><br>Consider the following:<br>If you want an embedded <span class="hljs-title function_">database</span> <span class="hljs-params">(H2, HSQL or Derby)</span>, please put it on the classpath.<br>If you have database settings to be loaded from a particular profile you may need to activate <span class="hljs-title function_">it</span> <span class="hljs-params">(no profiles are currently active)</span>.<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring Boot</category>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Spring Boot</tag>
+      
+      <tag>Spring</tag>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
